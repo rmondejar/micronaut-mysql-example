@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: mn.data.mysql
+testFramework: spock
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, data, data-jpa, flyway, graalvm, gradle, h2, hibernate-jpa, http-client, java, java-application, jdbc-hikari, logback, netty-server, reactor, reactor-http-client, readme, shade, spock, testcontainers, yaml]
