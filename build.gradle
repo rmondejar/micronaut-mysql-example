@@ -33,7 +33,8 @@ dependencies {
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("javax.annotation:javax.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
-    runtimeOnly("com.h2database:h2")
+    runtimeOnly("mysql:mysql-connector-java")
+    testImplementation("org.testcontainers:mysql")
     testImplementation("org.testcontainers:spock")
     testImplementation("org.testcontainers:testcontainers")
     compileOnly("org.graalvm.nativeimage:svm")
@@ -47,9 +48,11 @@ application {
     mainClass.set("mn.data.mysql.Application")
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("11")
-    targetCompatibility = JavaVersion.toVersion("11")
+    sourceCompatibility = JavaVersion.toVersion("16")
+    targetCompatibility = JavaVersion.toVersion("16")
 }
 
-
-
+nativeImage {
+    args('--verbose')
+    imageName('mn-data-mysql')
+}

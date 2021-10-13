@@ -1,12 +1,41 @@
 micronaut:
+  server:
+    port: 8080
   application:
-    name: mnDataMysql
+    name: mn-data-mysql
+
+jackson:
+  bean-introspection-module: true
+
 datasources:
   default:
-    url: jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ''
+    url: jdbc:mysql://localhost/exampleDB?generateSimpleParameterMetadata=true&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=false
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
     schema-generate: CREATE_DROP
-    dialect: H2
-jpa.default.properties.hibernate.hbm2ddl.auto: update
+    dialect: MYSQL
+    pooled: true
+    maximum-pool-size: 10
+    minimum-idle: 5
+    maximum-idle: 5
+    initial-size: 5
+---
+jpa:
+  default:
+    entity-scan:
+      packages: 'mn.data.mysql.domain'
+    properties:
+      hibernate:
+        bytecode:
+          provider: none
+        hbm2ddl:
+          auto: validate
+        show_sql: false
+
+flyway:
+  datasources:
+    default:
+      enabled: true
+      baseline-on-migrate: true
+      locations: classpath:db/migration
