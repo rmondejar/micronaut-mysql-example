@@ -1,10 +1,9 @@
 package mn.data.mysql.controllers;
 
 import java.util.List;
-import java.util.Optional;
+import javax.validation.Valid;
 
 import io.micronaut.http.annotation.*;
-import io.netty.handler.codec.http.QueryStringDecoder;
 import reactor.core.publisher.Mono;
 
 import io.micronaut.http.HttpResponse;
@@ -35,10 +34,11 @@ public class AuthorController {
     }
 
     @Post
-    public Mono<HttpResponse<AuthorDto>> createAuthor(@Body AuthorDto authorDto) {
-        Optional<AuthorDto> existingAuthor = authorService.findAuthor(authorDto.getName());
-
-        return Mono.just(existingAuthor.isPresent() ? HttpResponse.badRequest() :
+    public Mono<HttpResponse<AuthorDto>> createAuthor(@Body @Valid AuthorDto authorDto) {
+        return Mono.just(
+                authorService.findAuthor(authorDto.getName()).isPresent() ?
+                        HttpResponse.badRequest()
+                        :
                         HttpResponse.created(authorService.createAuthor(authorDto))
         );
     }

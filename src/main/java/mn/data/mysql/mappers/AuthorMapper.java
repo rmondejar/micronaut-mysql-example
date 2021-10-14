@@ -14,6 +14,6 @@ public class AuthorMapper {
     }
 
     public AuthorDto toDto(Author author) {
-        return new AuthorDto(author.getName(), author.getBirthDate());
+        return new AuthorDto(author.getName(), author.getBirthYear());
     }
 }

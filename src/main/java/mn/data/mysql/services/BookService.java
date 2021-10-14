@@ -1,7 +1,6 @@
 package mn.data.mysql.services;
 
 import java.util.Optional;
-import java.time.Instant;
 import java.util.List;
 import java.util.ArrayList;
 import jakarta.inject.Singleton;
@@ -31,20 +30,21 @@ public class BookService {
         return bookDtos;
     }
 
-    public List<BookDto> findAllByAuthorName(String authorName) {
+    public Optional<BookDto> findByTitle(String title) {
+        return bookRepository.findByTitle(title).map(bookMapper::toDto);
+    }
 
+    public List<BookDto> findAllByAuthorName(String authorName) {
         List<BookDto> bookDtos = new ArrayList<>();
 
         authorRepository.findByName(authorName).ifPresent(author ->
                 bookRepository.findAllByAuthor(author).forEach(book ->
                         bookDtos.add(bookMapper.toDto(book)))
         );
-
         return bookDtos;
     }
 
     public Optional<BookDto> create(BookDto bookDto) {
-
          return authorRepository.findByName(bookDto.getAuthor()).map(author ->
                                 bookRepository.save(new Book(bookDto.getTitle(), bookDto.getPubDate(), author)))
                                 .map(bookMapper::toDto);

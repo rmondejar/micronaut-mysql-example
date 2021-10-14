@@ -31,17 +31,35 @@ public class Book {
         this.author = author;
     }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Instant getPubDate() {
         return pubDate;
     }
 
+    public void setPubDate(Instant pubDate) {
+        this.pubDate = pubDate;
+    }
+
     public Author getAuthor() {
         return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

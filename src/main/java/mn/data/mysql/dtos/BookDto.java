@@ -5,7 +5,6 @@ import java.time.Instant;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.micronaut.core.annotation.Introspected;
 
 @Introspected
@@ -30,11 +29,23 @@ public class BookDto {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Instant getPubDate() {
         return pubDate;
     }
 
+    public void setPubDate(Instant pubDate) {
+        this.pubDate = pubDate;
+    }
+
     public String getAuthor() {
         return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

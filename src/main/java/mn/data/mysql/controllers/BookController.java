@@ -1,6 +1,7 @@
 package mn.data.mysql.controllers;
 
 import java.util.List;
+import javax.validation.Valid;
 
 import reactor.core.publisher.Mono;
 
@@ -10,10 +11,6 @@ import io.micronaut.http.HttpResponse;
 import mn.data.mysql.dtos.BookDto;
 import mn.data.mysql.services.AuthorService;
 import mn.data.mysql.services.BookService;
-
-
-import static io.micronaut.http.HttpResponseFactory.INSTANCE;
-import static io.micronaut.http.HttpStatus.FORBIDDEN;
 
 @Controller("/books")
 public class BookController {
@@ -42,14 +39,15 @@ public class BookController {
     }
 
     @Post
-    public Mono<HttpResponse<BookDto>> postBook(@Body BookDto bookDto) {
+    public Mono<HttpResponse> postBook(@Body @Valid BookDto bookDto) {
+        if (authorService.findAuthor(bookDto.getAuthor()).isEmpty() ||
+            bookService.findByTitle(bookDto.getTitle()).isPresent()) {
+            return Mono.just(HttpResponse.badRequest());
+        }
         return Mono.just(
-                authorService.findAuthor(bookDto.getAuthor()).map(author ->
-                        bookService.create(bookDto)
-                                .map(book -> HttpResponse.created(book))
-                                .orElse(INSTANCE.status(FORBIDDEN))
-                )
-                        .orElse(HttpResponse.notFound())
+                bookService.create(bookDto)
+                    .map(book -> HttpResponse.created(book))
+                    .orElseGet(HttpResponse::badRequest)
         );
     }
 }

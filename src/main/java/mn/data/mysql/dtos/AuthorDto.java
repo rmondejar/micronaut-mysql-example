@@ -9,7 +9,6 @@ public class AuthorDto {
 
     @NotBlank
     private String name;
-
     @NotBlank
     private Integer birthYear;
 
@@ -24,7 +23,15 @@ public class AuthorDto {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Integer getBirthYear() {
         return birthYear;
+    }
+
+    public void setBirthYear(Integer birthYear) {
+        this.birthYear = birthYear;
     }
 }
