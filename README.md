@@ -2,7 +2,7 @@
 
 Micronaut 3 example app with Java, MySQL, Flyway, TestContainers, and GraalVM
 
-Kotlin Version: [https://github.com/rmondejar/micronaut-mysql-version](https://github.com/rmondejar/micronaut-mysql-example)
+Kotlin Version: [https://github.com/rmondejar/micronaut-mysql-kotlin](https://github.com/rmondejar/micronaut-mysql-kotlin)
 
 Story: [Native Image with Micronaut 3.1 and MySQL](https://ruuben.medium.com/native-image-with-micronaut-3-1-and-mysql-400e66672159)
 
